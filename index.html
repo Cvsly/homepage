@@ -3,33 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="YongL个人主页，展示个人作品、博客、生活动态和联系方式">
+    <meta name="description" content="Deer个人主页，展示个人作品、博客、生活动态和联系方式">
     <meta name="keywords" content="YongL, 博客, 个人网站, 互联网从业者">
     <meta name="author" content="YongL">
     <meta name="theme-color" content="#121212">
     <meta name="robots" content="index, follow">
-    <title>YongL - homepage</title>
+    <title>Deer - homepage</title>
     
-    <!-- 临时控制台清理脚本，可在调试完成后移除 -->
-    <script>
-        console.clear();
-        // 禁止缓存API请求
-        fetch = ((originalFetch) => {
-          return (...args) => {
-            const [resource, config] = args;
-            // 为API URL添加时间戳参数，避免缓存
-            if (resource && resource.includes('api')) {
-              const url = new URL(resource);
-              url.searchParams.append('_t', Date.now());
-              args[0] = url.toString();
-            }
-            return originalFetch.apply(null, args);
-          };
-        })(fetch);
-    </script>
     
     <!-- Open Graph / 社交媒体预览 -->
-    <meta property="og:title" content="YongL">
+    <meta property="og:title" content="YongL - homepage">
     <meta property="og:description" content="欢迎访问YongL的个人主页">
     <meta property="og:image" content="/assets/img/logo.png">
     <meta property="og:url" content="https://ikiss.eu.org">
@@ -41,19 +24,17 @@
     <link rel="manifest" href="/manifest.json">
     
     <!-- 资源预加载和预连接 -->
-    <link rel="preload" href="https://v.api.aa1.cn/api/yiyan/index.php" as="fetch" crossorigin>
-    <link rel="preconnect" href="https://v.api.aa1.cn">
+    <link rel="preload" href="https://v1.hitokoto.cn/?c=a" as="fetch" crossorigin>
+    <link rel="preconnect" href="https://v1.hitokoto.cn">
     <link rel="preconnect" href="https://bing.img.run">
-    <link rel="dns-prefetch" href="https://v.api.aa1.cn">
+    <link rel="dns-prefetch" href="https://v1.hitokoto.cn">
     <link rel="dns-prefetch" href="https://bing.img.run">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="preconnect" href="https://giscus.app" crossorigin>
-    
-    <!-- 关键CSS内联（实际项目中可以使用构建工具自动生成） -->
+    <!-- 关键CSS内联 -->
     <link rel="stylesheet" href="assets/css/style.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="assets/css/style.css"></noscript>
-      <!-- 异步加载字体图标 -->
+    <!-- 异步加载字体图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
           crossorigin="anonymous" referrerpolicy="no-referrer" 
@@ -64,36 +45,57 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" 
           media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"></noscript>
-    
-    
-    <link rel="preload" href="/assets/fonts/NotoSansSC-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="/assets/fonts/NotoSansSC-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="assets/fonts/AlimamaDaoLiTi-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 </head>
 <body>
+<!-- 无障碍性：跳转到主内容 -->
+<a href="#main-content" class="skip-link">跳转到主内容</a>
+
 <div id="global-loading">
   <div class="spinner"></div>
   <div class="loading-text">正在加载...</div>
 </div>
-    <main class="container" role="main">
+    <main class="container" role="main" id="main-content">
         <div class="content">
             <header>
                 <div class="logo">
-                    <img src="assets/img/logo.png" alt="YongL Logo" width="120" height="120" loading="eager">
+                    <picture>
+                        <source srcset="assets/img/logo-optimized.png" type="image/png">
+                        <img src="assets/img/logo-optimized.png" alt="Deer Logo" width="120" height="120" loading="eager" decoding="async">
+                    </picture>
                 </div>
-                <p class="subtitle" aria-label="问候语">hi 👋,I'm YongL</p>   <!-- 𝐇𝐢 👋, 欢迎来到我的个人主页 -->
+                <p class="subtitle" aria-label="问候语">hi 👋,I'm YongL</p>   <!-- 𝐇𝐢 👋, 𝐈'𝐦 YongL -->
             </header>
                 
-            <div class="hitokoto" aria-live="polite">
-                <p class="hitokoto-text">加载中...</p>
-                <p class="hitokoto-from">- [加载中...]</p>
+            <div class="hitokoto" aria-live="polite" role="region" aria-label="每日一言">
+                <p class="hitokoto-text" aria-describedby="hitokoto-source">加载中...</p>
+                <p class="hitokoto-from" id="hitokoto-source">- [加载中...]</p>
             </div>
             
-            <nav class="navigation" aria-label="主导航">
-                <a href="https://ikiss.eu.org" class="nav-item" rel="noopener" target="_blank">博客</a>
-                <a href="#navigation" class="nav-item">导航</a>
-                <a href="#guestbook" class="nav-item">留言</a>
-                <a href="#friends" class="nav-item">友链</a>
-                <a href="#about" class="nav-item">关于</a>
+            <!-- 移动端汉堡菜单按钮 -->
+            <button class="mobile-menu-toggle" aria-label="打开菜单" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            
+            <nav class="navigation" aria-label="主导航" role="navigation">
+                <a href="https://ikiss.eu.org" class="nav-item" rel="noopener" target="_blank" aria-describedby="external-link-notice">
+                    博客<span class="sr-only">（在新窗口打开）</span>
+                </a>
+                <a href="#navigation" class="nav-item" aria-describedby="nav-description">导航</a>
+                <a href="#guestbook" class="nav-item" aria-describedby="guestbook-description">留言</a>
+                <a href="#friends" class="nav-item" aria-describedby="friends-description">友链</a>
+                <a href="#about" class="nav-item" aria-describedby="about-description">关于</a>
+                
+                <!-- 屏幕阅读器说明 -->
+                <div class="sr-only">
+                    <span id="external-link-notice">外部链接，将在新窗口打开</span>
+                    <span id="nav-description">个人导航页面</span>
+                    <span id="guestbook-description">留言板页面</span>
+                    <span id="friends-description">友情链接页面</span>
+                    <span id="about-description">个人简介页面</span>
+                </div>
             </nav>
         </div>
     </main>
@@ -105,7 +107,10 @@
             <h2 class="section-title">关于我</h2>
             <div class="about-content">
                 <div class="about-avatar">
-                    <img src="assets/img/logo.png" alt="个人头像" width="200" height="200" loading="lazy">
+                    <picture>
+                        <source srcset="assets/img/logo-optimized.png" type="image/png">
+                        <img src="assets/img/logo-optimized.png" alt="个人头像" width="200" height="200" loading="lazy" decoding="async">
+                    </picture>
                     <div class="social-links about-social">
                         <a href="https://github.com/Cvsly" target="_blank" rel="noopener" aria-label="GitHub主页">
                             <i class="fab fa-github" aria-hidden="true"></i>
@@ -129,7 +134,7 @@
                     <p>欢迎来到我的个人主页!</p>
                     <div style="margin: 1.5rem 0;">
                         <h3>生活碎片 📷</h3>
-                        <a href="https://ikiss.eu.org/article/my" class="nav-item" rel="noopener" target="_blank" style="display:inline-flex; margin-top:0.5rem;">我的空间</a>
+                        <a href="https://ikiss.eu.org/article/my" class="nav-item" rel="noopener" target="_blank" style="display:inline-flex; margin-top:0.5rem;">旅行日记</a>
                     </div>
                     <h3>技能标签 💻</h3>
                     <div class="skill-tags" aria-label="我的技能">
@@ -141,7 +146,7 @@
                     </div>
                     
                     <h3>兴趣爱好 🎈</h3>
-                    <p>编程、阅读、摄影、旅行</p>
+                    <p>运动、阅读、摄影、旅行</p>
                 </div>
             </div>
         </div>
@@ -152,11 +157,6 @@
         <div class="about-container">
             <a href="#" class="back-btn" id="back-btn-guestbook"><i class="fas fa-arrow-left" aria-hidden="true"></i> <span>返回</span></a>
             <h2 class="section-title">留言板</h2>
-            
-            <div class="guestbook-intro">
-                <p>欢迎在这里留下您的想法、建议或问候！</p>
-                <p class="guestbook-notice">基于GitHub Discussions的评论系统，需要GitHub账号登录后才能评论。</p>
-            </div>
             
             <!-- Giscus 评论容器 - 修改为直接嵌入版本，解决跨域问题 -->
             <div id="giscus-container" class="giscus-container">
@@ -196,37 +196,108 @@
             </div>
           </a>
           
-          <!-- 友链模板：复制以下结构添加新友链 -->
-          <a class="friend-item" href="https://linux.do/" target="_blank" rel="noopener">
-            <img src="https://www.faviconextractor.com/favicon/linux.do" alt="站点名称" width="48" height="48" class="avatar-round">
+          <a class="friend-item" href="https://v2ex.com/" target="_blank" rel="noopener">
+            <img src="https://www.faviconextractor.com/favicon/v2ex.com" alt="V2EX" width="48" height="48" class="avatar-round">
             <div>
-              <div class="friend-name">LINUX DO</div>
-              <div class="friend-desc">新的理想型社区</div>
+              <div class="friend-name">V2EX</div>
+              <div class="friend-desc">创意工作者们的社区</div>
             </div>
           </a>
-          <!-- 可继续添加更多友链 -->
+          
+          <a class="friend-item" href="https://segmentfault.com/" target="_blank" rel="noopener">
+            <img src="https://www.faviconextractor.com/favicon/segmentfault.com" alt="SegmentFault" width="48" height="48" class="avatar-round">
+            <div>
+              <div class="friend-name">SegmentFault 思否</div>
+              <div class="friend-desc">中文技术问答社区</div>
+            </div>
+          </a>
+          
+          <a class="friend-item" href="https://juejin.cn/" target="_blank" rel="noopener">
+            <img src="https://www.faviconextractor.com/favicon/juejin.cn" alt="掘金" width="48" height="48" class="avatar-round">
+            <div>
+              <div class="friend-name">掘金</div>
+              <div class="friend-desc">开发者技术社区</div>
+            </div>
+          </a>
+          
+          <a class="friend-item" href="https://stackoverflow.com/" target="_blank" rel="noopener">
+            <img src="https://www.faviconextractor.com/favicon/stackoverflow.com" alt="Stack Overflow" width="48" height="48" class="avatar-round">
+            <div>
+              <div class="friend-name">Stack Overflow</div>
+              <div class="friend-desc">全球程序员问答社区</div>
+            </div>
+          </a>
+          
+          <a class="friend-item" href="https://www.zhihu.com/" target="_blank" rel="noopener">
+            <img src="https://www.faviconextractor.com/favicon/zhihu.com" alt="知乎" width="48" height="48" class="avatar-round">
+            <div>
+              <div class="friend-name">知乎</div>
+              <div class="friend-desc">中文问答社区</div>
+            </div>
+          </a>
+          
+          <a class="friend-item" href="https://sspai.com/" target="_blank" rel="noopener">
+            <img src="https://www.faviconextractor.com/favicon/sspai.com" alt="少数派" width="48" height="48" class="avatar-round">
+            <div>
+              <div class="friend-name">少数派</div>
+              <div class="friend-desc">高质量数字生活指南</div>
+            </div>
+          </a>
+          
+          <a class="friend-item" href="https://www.reddit.com/r/programming/" target="_blank" rel="noopener">
+            <img src="https://www.faviconextractor.com/favicon/reddit.com" alt="Reddit Programming" width="48" height="48" class="avatar-round">
+            <div>
+              <div class="friend-name">Reddit Programming</div>
+              <div class="friend-desc">编程话题讨论社区</div>
+            </div>
+          </a>
+          
+          <a class="friend-item" href="https://news.ycombinator.com/" target="_blank" rel="noopener">
+            <img src="https://www.faviconextractor.com/favicon/news.ycombinator.com" alt="Hacker News" width="48" height="48" class="avatar-round">
+            <div>
+              <div class="friend-name">Hacker News</div>
+              <div class="friend-desc">科技新闻与讨论</div>
+            </div>
+          </a>
+          
+          <a class="friend-item" href="https://dev.to/" target="_blank" rel="noopener">
+            <img src="https://www.faviconextractor.com/favicon/dev.to" alt="DEV Community" width="48" height="48" class="avatar-round">
+            <div>
+              <div class="friend-name">DEV Community</div>
+              <div class="friend-desc">开发者写作平台</div>
+            </div>
+          </a>
+          
+          <!-- 更多友链可以在这里添加 -->
 
 
         </div>
         <!-- 友链提交入口 -->
         <div class="friend-submit mt-2">
-          <h3>申请友链</h3>
-          <form id="friend-link-form">
-            <input type="text" name="name" placeholder="您的网站名称" required class="mb-05">
-            <input type="url" name="url" placeholder="您的网站链接" required class="mb-05">
-            <input type="url" name="logo" placeholder="Logo图片链接（可选）" class="mb-05">
-            <textarea name="desc" placeholder="网站描述（可选）" rows="2" class="mb-05"></textarea>
-            <div class="mb-05" style="text-align:left; color:#fff;">
-              <label style="margin-right:1.5rem;">
-                <input type="radio" name="pushType" value="telegram" required> Telegram
-              </label>
-              <label>
-                <input type="radio" name="pushType" value="feishu" required> 飞书
-              </label>
-            </div>
-            <button type="submit">提交申请</button>
-          </form>
-          <div id="friend-link-result" class="friend-result"></div>
+          <div class="friend-submit-header" id="friend-submit-toggle">
+            <h3>申请友链</h3>
+            <button class="toggle-btn" aria-expanded="false" aria-label="展开友链申请表单">
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+          <div class="friend-submit-form" id="friend-submit-form" style="display: none;">
+            <form id="friend-link-form">
+              <input type="text" name="name" placeholder="您的网站名称" required class="mb-05">
+              <input type="url" name="url" placeholder="您的网站链接" required class="mb-05">
+              <input type="url" name="logo" placeholder="Logo图片链接（可选）" class="mb-05">
+              <textarea name="desc" placeholder="网站描述（可选）" rows="2" class="mb-05"></textarea>
+              <div class="mb-05" style="text-align:left; color:#fff;">
+                <label style="margin-right:1.5rem;">
+                  <input type="radio" name="pushType" value="telegram" required> Telegram
+                </label>
+                <label>
+                  <input type="radio" name="pushType" value="feishu" required> 飞书
+                </label>
+              </div>
+              <button type="submit">提交申请</button>
+            </form>
+            <div id="friend-link-result" class="friend-result"></div>
+          </div>
         </div>
         </div>
     </section>
@@ -245,7 +316,7 @@
                 <div class="nav-category">
                     <h3><i class="fas fa-rocket" aria-hidden="true"></i> 自用应用</h3>
                     <div class="nav-links">
-                        <a class="nav-link-item" href="https://nezha.omgd.eu.org" target="_blank" rel="noopener">
+                        <a class="nav-link-item" href="https://nezha.omgd.eu.org/" target="_blank" rel="noopener">
                             <span class="nav-icon emoji-icon">🚀</span>
                             <div>
                                 <div class="nav-name">Nezha</div>
@@ -259,7 +330,7 @@
                                 <div class="nav-desc">网站监控</div>
                             </div>
                         </a>
-                        <a class="nav-link-item" href="https://tag.nssd.eu.org" target="_blank" rel="noopener">
+                        <a class="nav-link-item" href="https://tag.nssd.eu.org/" target="_blank" rel="noopener">
                             <img src="https://www.faviconextractor.com/favicon/sun.952780.xyz" alt="应用3" width="32" height="32" class="nav-icon">
                             <div>
                                 <div class="nav-name">SunPanel</div>
@@ -280,14 +351,14 @@
                                 <div class="nav-desc">京东登录</div>
                             </div>
                         </a>
-                        <a class="nav-link-item" href="https://img.ikiss.eu.org/login" target="_blank" rel="noopener">
+                        <a class="nav-link-item" href="https://img.ikiss.eu.org/login/" target="_blank" rel="noopener">
                             <img src="https://www.faviconextractor.com/favicon/img.106996.xyz" alt="图片服务" width="32" height="32" class="nav-icon">
                             <div>
                                 <div class="nav-name">ImgHub</div>
                                 <div class="nav-desc">图床</div>
                             </div>
                         </a>
-                        <a class="nav-link-item" href="https://tag.nssd.eu.org" target="_blank" rel="noopener">
+                        <a class="nav-link-item" href="https://card-tab.106996.xyz/" target="_blank" rel="noopener">
                             <span class="nav-icon emoji-icon">📋</span>
                             <div>
                                 <div class="nav-name">card-tab</div>
@@ -422,33 +493,58 @@
     <footer class="footer" role="contentinfo">
         <div class="footer-content">
             <p>
-                YongL &copy; <span id="current-year"></span>
-                <a href="https://github.com/Cvsly/homepage" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; margin-left: 10px;">
+                Deer &copy; <span id="current-year"></span>
+                <a href="https://github.com/deerwan/homepage_demo" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; margin-left: 10px;">
                     <i class="ri-github-fill"></i> GitHub
                 </a>
             </p>
         </div>
     </footer>
 
-    <!-- 主脚本延迟加载 -->
-    <script src="assets/js/main.js" defer></script>
+    <!-- 模块化主脚本 -->
+    <script type="module" src="assets/js/app.js"></script>
+    
+    <!-- 降级支持：非ES6模块浏览器使用原始脚本 -->
+    <script nomodule src="assets/js/main.js" defer></script>
     
     <!-- 结构化数据 -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
-      "name": "YongL",
-      "url": "https://ikiss.eu.org",
+      "name": "Deer",
+      "url": "https://lllh.de",
       "image": "/assets/img/logo.png",
       "sameAs": [
-        "https://github.com/Cvsly",
-        "https://ikiss.eu.org/archive"
+        "https://github.com/deerwan",
+        "https://deerwan.github.io"
       ],
       "jobTitle": "开发者",
       "knowsAbout": ["Web开发", "前端技术", "JavaScript", "React", "Node.js", "Python"]
     }
     </script>
+
+    <!-- 网易云歌单播放器（APlayer + MetingJS）
+         lrc-type="0" 表示关闭歌词显示，autoplay="true" 表示自动播放 -->
+    <meting-js
+        server="netease"
+        type="playlist"
+        id="8417796623"
+        fixed="true"
+        autoplay="false"
+        order="random"
+        theme="#4a89dc"
+        loop="all"
+        preload="auto"
+        volume="0.7"
+        lrc-type="0">
+    </meting-js>
+    <!-- APlayer CSS（音乐播放器样式） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <!-- APlayer JS（音乐播放器功能） -->
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    <!-- MetingJS（支持网易云等歌单，需在APlayer后引入） -->
+    <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
     
     <!-- Giscus 评论系统已在留言板部分实现，此处移除重复代码 -->
 </body>
